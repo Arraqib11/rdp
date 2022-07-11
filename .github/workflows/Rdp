@@ -1,0 +1,98 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.nama: ZactechRDP
+
+pada: alur kerja_dispatch
+
+pekerjaan:
+
+  membangun:
+
+    berjalan-on: windows-terbaru
+
+    waktu habis-menit: 9999
+
+    Langkah:
+
+    - nama : Download Ngrok.
+
+      lari: |
+
+        Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
+
+        Invoke-WebRequest https://raw.githubusercontent.com/Zakybotz/Rdp-Free/master/start.bat -OutFile start.bat
+
+        Invoke-WebRequest https://raw.githubusercontent.com/Zakybotz/Rdp-Free/master/wallpaper.bat -OutFile wallpaper.bat
+
+        Invoke-WebRequest https://raw.githubusercontent.com/Zakybotz/Rdp-Free/master/loop.bat -OutFile loop.bat
+
+        Invoke-WebRequest https://raw.githubusercontent.com/Zakybotz/Rdp-Free/master/start.bat -OutFile push.bat
+
+    - nama : Ekstrak File Ngrok.
+
+      jalankan: Perluas-Arsip ngrok.zip
+
+    - Nama : Sambung Ngrok.
+
+      jalankan: .\ngrok\ngrok.exe authtoken $Env:NGROK_AUTH_TOKEN
+
+      lingkungan:
+
+        NGROK_AUTH_TOKEN: ${{ rahasia.NGROK_AUTH_TOKEN }}
+
+    - nama: Windows10 RDP.
+
+      lari: |
+
+        Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-nama "fDenyTSConnections" -Nilai 0
+
+        Aktifkan-NetFirewallRule -DisplayGroup "Desktop Jarak Jauh"
+
+        Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -nama "UserAuthentication" -Nilai 1
+
+        salin wallpaper.bat D:\a\wallpaper.bat
+
+    - nama: Terowongan.
+
+      jalankan: Start-Process Powershell -ArgumentList '-Noexit -Command ".\ngrok\ngrok.exe tcp --region ap 3389"'
+
+    - nama: Hubungkan RDP.
+
+      jalankan: cmd /c start.bat
+
+    - nama: win10 RDP.
+
+      jalankan: cmd /c loop.bat
